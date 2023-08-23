@@ -1,25 +1,39 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Header from './components/Header';
+import Candy from './components/Candy';
 
-function App() {
+const App = () => {
+  const [cartCount, setCartCount] = useState(0);
+
+  const handleBuy = (quantity) => {
+    setCartCount(cartCount + quantity);
+  };
+
+  const candyData = [
+    {
+      name: 'ECLAIRES',
+      description: 'Delicious candy description 1.',
+      price: 1.99,
+    },
+    {
+      name: 'PARLE',
+      description: 'Yummy candy description 2.',
+      price: 2.49,
+    },
+    // Add more candy data here
+  ];
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header cartCount={cartCount} />
+      <div className="candy-container">
+        {candyData.map((candy, index) => (
+          <Candy key={index} candy={candy} onBuy={handleBuy} />
+        ))}
+      </div>
     </div>
   );
-}
+};
 
 export default App;
